@@ -73,7 +73,8 @@ func IsRemoteNotExistError(err error) bool {
 // and returns composed URL with needed username and password.
 func ParseRemoteAddr(remoteAddr, authUsername, authPassword string) (string, error) {
 	remoteAddr = strings.TrimSpace(remoteAddr)
-	// Remote address can be HTTP/HTTPS/Git URL or local path.
+	remoteAddr = NormalizeScpLikeSSHAddr(remoteAddr)
+	// Remote address can be HTTP/HTTPS/Git/SSH URL or local path.
 	if strings.HasPrefix(remoteAddr, "http://") ||
 		strings.HasPrefix(remoteAddr, "https://") ||
 		strings.HasPrefix(remoteAddr, "git://") {
